@@ -1,0 +1,118 @@
+{
+  "heading": "G9NZ_Atomic Identity and Properties-II",
+  "topics": [
+    {
+      "heading": "Atomic Identity and Properties-II",
+      "questions": [
+        {
+          "questionNo": 1,
+          "section": "short",
+          "marks": 3,
+          "question": ["Write the electron arrangement for each of the following atoms and ions:<br>(a)Sodium (Na): ______,______,______<br>Sodium ion (Na<sup>+</sup>): ______,______<br>Magnesium ion (Mg<sup>2+</sup>): ______,______<br>Chloride ion (Cl<sup>-</sup>): ______,______,______<br>Helium (He): ______"],
+          "input": ["","","","","","","","","","",""],
+          "answer": ["2","8","1","2","8","2","8","2","8","8","2"]
+        },
+        {
+          "questionNo": 2,
+          "section": "short",
+          "marks": 3,
+          "question": ["For each diagram, determine the atomic number, mass number and valency, and identify the element or ion<br><img width='55%' src='./assests/images/1.png'><br><b>(a)</b> Atomic number = 12<br>Mass number = 24<br>Valency = 2<br>Element = Magnesium <br>Ion = Mg<br><b>(b)</b> Atomic number = ______<br>Mass number = ______<br>Valency = ______<br>Element = ______<br> Ion = ______<br><b>(c)</b> Atomic number = ______<br>Mass number = ______<br>Element = ______<br> Ion = ______ <sup>______</sup><br>charge = ______<br><b>(d)</b> Atomic number = ______<br>Mass number = ______<br>Valency = ______<br>Element = ______<br> Ion = ______<br><b>(e)</b> Atomic number = ______<br>Mass number = ______<br>Valency = ______<br>Element = ______<br> Ion = ______<br><b>(f)</b> Atomic number = ______<br>Mass number = ______<br>Valency = ______<br>Element = ______<br> Ion = ______<br><b>(g)</b> Atomic number = ______<br>Mass number = ______<br>Element = ______ <br> Ion = ______ <sup>______</sup><br>charge = ______"],
+          "input": ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""],
+          "answer": ["11","23","1","Sodium","Na","11","23","Sodium ion","Na","+","+1","1","1","1","Hydrogen","H","16","32","{2,4,6}","Sulphur","S","10","20","0","Argon","Ar","9","19","Fluorine ion","F","-","-1"]
+        },
+        {
+          "questionNo": 3,
+          "section": "short",
+          "marks": 3,
+          "question":["For the isotopes of hydrogen, tabulate the three sub-atomic particles present in each."],
+          "type": "table",
+          "table": {
+            "columns": ["Isotope of hydrogen", "Symbol","Proton","Neutron","Electron "],
+            "rows": [
+              ["","","","",""],
+              ["","","","",""],
+              ["","","","",""]
+            ]
+          },
+          "answer": [
+              ["Protium","H","1","0","1"],
+              ["Deuterium","D","1","1","1"],
+              ["Tritium","T","1","2","1"]
+          ]
+        },
+        {
+  "questionNo": 4,
+  "section": "short",
+  "marks": 3,
+  "question": [" Explain the difference between isotopes and isobars.<br>Include one suitable example of each in your answer."],
+  "text_area": "",
+  "answer": ["Isotopes: Isotopes are atoms of the same element that have the same atomic number but different mass numbers.<br>Example: Carbon-12 and Carbon-14 are isotopes because both have 6 protons but different numbers of neutrons.<br><br>Isobars: Isobars are atoms of different elements that have the same mass number but different atomic numbers.<br>Example: Carbon-14 and Nitrogen-14 are isobars because both have a mass number of 14 but different atomic numbers."]
+},
+        {
+          "questionNo": 5,
+          "section": "short",
+          "marks": 3,
+            "question": ["Chlorine has two common isotopes:<br><img width='30%' src='./assests/images/13.png'><br>Do these isotopes have the same or different valency?<br>Give a reason for your answer."],
+  "text_area": "",
+  "answer": ["Chlorine-35 and chlorine-37 have the same valency.<br>This is because they have the same number of protons and electrons. Both have 7 electrons in their outer shell, so they have the same valency. The number of neutrons is different, but this does not affect their valency."]
+        },
+        {
+          "questionNo": 6,
+          "section": "short",
+          "marks": 3,
+          "question": ["Describe two uses of isotopes.<br>For each use, name a suitable isotope."],
+          "text_area": "",
+          "answer": ["Cobalt-60 is used to treat cancer using radiotherapy.<br>Iodine-131 is used to diagnose and treat goitre and other thyroid disorders."]
+        },
+        {
+          "questionNo": 7,
+          "section": "short",
+          "marks": 3,
+          "question": ["Explain how cations and anions are formed.<br>Give one example of each."],
+           "text_area": "",
+          "answer": ["Cation: A cation is formed when an atom loses one or more electrons, giving it a positive charge.<br>Example: A sodium atom loses one electron to form a sodium ion (Na+).<br><br>Anion: An anion is formed when an atom gains one or more electrons, giving it a negative charge.<br>Example: A chlorine atom gains one electron to form a chloride ion (Cl–)."]
+        },
+        {
+          "questionNo": 8,
+           "section": "long",
+          "marks": 5,
+          "question": [" Explain how sodium (Na) and chlorine (Cl) atoms form sodium chloride (NaCl).<br>In your answer, describe how electrons are transferred between the atoms and explain how the resulting ions form the compound."],
+          "text_area": "",
+          "answer": ["A sodium (Na) atom has one electron in its outer shell, while a chlorine (Cl) atom has seven. Sodium transfers its outer electron to chlorine.<br>Sodium loses one electron to form a positively charged sodium ion (Na<sup>+</sup>), while chlorine gains one electron to form a negatively charged chloride ion (Cl<sup>–</sup>).<br>The oppositely charged Na<sup>+</sup> and Cl<sup>–</sup> ions attract each other through electrostatic attraction, forming sodium chloride (NaCl), a compound."]
+        },
+        {
+          "questionNo": 9,
+           "section": "long",
+          "marks": 5,
+          "question": ["What is meant by the term valency?"],
+          "text_area": "",
+          "answer": ["Valency is the combining capacity of an atom. It is the number of electrons an atom loses, gains, or shares to form a stable outer electron shell."]
+        },
+        {
+          "questionNo": 10,
+           "section": "long",
+          "marks": 5,
+          "question": ["Explain how atoms can achieve a more stable electron arrangement by gaining, losing or sharing electrons.<br>Include one example for each method in your answer."],
+          "text_area": "",
+          "answer": ["Atoms can achieve a more stable electron arrangement by gaining, losing, or sharing electrons to fill their outer electron shell.<br><br>Gaining electrons: <br>A chlorine atom gains one electron to form a chloride ion (Cl–), giving it a full outer shell.<br><br>Losing electrons: <br>A sodium atom loses one electron to form a sodium ion (Na+), giving it a full outer shell.<br><br>Sharing electrons: <br>Two oxygen atoms share electrons to form an oxygen molecule (O2). This allows each oxygen atom to achieve a full outer electron shell."]
+        },
+        {
+          "questionNo": 11,
+           "section": "long",
+          "marks": 5,
+          "question": ["If bromine atom is available in the form of two isotopes:<br><img width='30%' src='./assests/images/14.png'><br>Calculate the average atomic mass of the bromine atom.<br>Answer: ______u"],
+          "input": [""],
+          "answer": ["80"]
+        },
+        {
+          "questionNo": 12,
+           "section": "long",
+          "marks": 5,
+          "question": ["The average atomic mass of a sample of an element X is 16.2 u.<br>What are the percentage of isotopes <sup>16</sup>X and <sup>18</sup>X in the sample?<br>Fraction of <sup>16</sup>X = ______%<br>Fraction of <sup>18</sup>X = ______%"],
+          "input": ["",""],
+          "answer": ["90","10"]
+        }
+      ]
+    }
+  ]
+}

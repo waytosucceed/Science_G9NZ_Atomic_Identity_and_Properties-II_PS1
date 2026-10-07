@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results</title>
+    <link rel="stylesheet" href="wts.css" />
+    <link rel="icon" type="image/x-icon" href="./assests/logo/Logo_last.png" />
+    <link rel="stylesheet" href="graph.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include html2canvas and jsPDF libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  </head>
+
+  <body>
+    <header class="header">
+      <img src="./assests/logo/Logo.png" alt="Logo" class="logo" />
+      <img src="./assests/logo/header.png" alt="Header" class="header-image" />
+    </header>
+    <button class="download-button" id="downloadBtn">Download Report</button>
+    <h3 id="classNameDisplay" style="color: white;"></h3>
+    <div class="instructions-container">
+      <h2>Instructions</h2>
+      <ol>
+        <li>1. Download the Report.</li>
+        <br />
+        <li>
+          2. Upload it in your drive inside your homework folder
+        </li>
+      </ol>
+    </div>
+
+    <div id="picdiv"></div>
+    <div id="questiondiv"></div>
+
+    <div id="pagination-controls" style="text-align: center; margin: 20px 0">
+      <button id="prevPage" class="pagination-button">Previous</button>
+      <span id="pageNumber">Page 1</span>
+      <button id="nextPage" class="pagination-button">Next</button>
+    </div>
+
+    <button class="download-button" id="downloadBtn2">Download Report</button>
+
+    <div class="loading-overlay" id="loadingOverlay">Downloading...</div>
+
+    <script>
+      const uniqueKey = "G9NZ_Atomic Identity and Properties-II";
+      const className = "Atomic Identity and Properties-II";
+
+      document.getElementById("classNameDisplay").textContent = className;
+
+      // ── localStorage helpers ──────────────────────────────────────────────
+      function getFromLocalStorage(key) {
+        return JSON.parse(localStorage.getItem(key)) || {};
+      }
+
+      // ── Pagination state ──────────────────────────────────────────────────
+      let currentPage = 0;
+      const questionsPerPage = 8;
+
+      function setupPagination() {
+        updatePagination();
+      }
+
+      function updatePagination() {
+        const questionPages = document.querySelectorAll(".question-page");
+        questionPages.forEach((page, index) => {
+          page.style.display = index === currentPage ? "block" : "none";
+        });
+
+        document.getElementById("pageNumber").textContent = `Page ${currentPage + 1}`;
+        document.getElementById("prevPage").disabled = currentPage === 0;
+        document.getElementById("nextPage").disabled =
+          currentPage === questionPages.length - 1;
+      }
+
+      document.getElementById("prevPage").addEventListener("click", () => {
+        if (currentPage > 0) { currentPage--; updatePagination(); }
+      });
+
+      document.getElementById("nextPage").addEventListener("click", () => {
+        const questionPages = document.querySelectorAll(".question-page");
+        if (currentPage < questionPages.length - 1) { currentPage++; updatePagination(); }
+      });
+
+      // ── Clear localStorage ────────────────────────────────────────────────
+      function clearLocalStorage() {
+        console.log("Clearing local storage...");
+        localStorage.removeItem(uniqueKey);
+      }
+
+      // ── Load & display all question-content results ───────────────────────
+      function loadAllResults() {
+        const questionContentDiv = document.getElementById("questiondiv");
+        questionContentDiv.innerHTML = "";
+
+        const picContentDiv = document.getElementById("picdiv");
+        picContentDiv.style.display = "none";
+
+        displayContentForKey(uniqueKey);
+
+        setupPagination();
+      }
+
+      function displayContentForKey(uniqueKey) {
+        const data = getFromLocalStorage(uniqueKey);
+        console.log("data", data);
+
+        if (data && typeof data === "object") {
+          Object.keys(data).forEach((key) => {
+            if (key.includes("_question_content")) {
+              const content = data[key];
+              const topicName = key.replace("_question_content", "");
+
+              const topicContainer = document.createElement("div");
+              topicContainer.style.marginBottom = "20px";
+              topicContainer.style.padding = "10px";
+              topicContainer.style.border = "1px solid #ddd";
+              topicContainer.style.borderRadius = "8px";
+              topicContainer.style.backgroundColor = "transparent";
+
+              const heading = document.createElement("h3");
+              heading.textContent = topicName;
+              heading.style.marginTop = "0";
+              heading.style.color = "#D6B65B";
+              topicContainer.appendChild(heading);
+
+              const contentDiv = document.createElement("div");
+              contentDiv.innerHTML = content;
+              topicContainer.appendChild(contentDiv);
+
+              document.getElementById("questiondiv").appendChild(topicContainer);
+            }
+          });
+        } else {
+          console.warn("No data available for the key:", uniqueKey);
+        }
+      }
+
+      loadAllResults();
+
+      // ── Watermark helper ──────────────────────────────────────────────────
+      function addWatermarkToPDF(pdf) {
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+
+        pdf.saveGraphicsState();
+        pdf.setGState(new pdf.GState({ opacity: 0.15 }));
+        pdf.setTextColor(255, 165, 0);
+        pdf.setFontSize(50);
+        pdf.setFont(undefined, 'bold');
+
+        const centerX1 = pageWidth * 0.6;
+        const centerY1 = pageHeight * 0.65;
+
+        pdf.text("Way To Succeed", centerX1, centerY1, {
+          angle: 45,
+          align: 'center',
+          baseline: 'middle'
+        });
+
+        pdf.restoreGraphicsState();
+      }
+
+      // ── Download Report ───────────────────────────────────────────────────
+      async function downloadReport() {
+        const { jsPDF } = window.jspdf;
+
+        document.getElementById("loadingOverlay").style.display = "flex";
+
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        async function loadImage(src) {
+          return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.src = src;
+          });
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        const logo   = await loadImage("./assests/logo/Logo.png");
+        const banner = await loadImage("./assests/logo/banner.png");
+
+        const logoWidth    = 30;
+        const logoHeight   = (logo.height * logoWidth) / logo.width;
+        const bannerWidth  = pdf.internal.pageSize.getWidth() - 20;
+        const bannerHeight = (banner.height * bannerWidth) / banner.width;
+
+        addWatermarkToPDF(pdf);
+pdf.addImage(banner.src, "PNG", 10, 10, bannerWidth, bannerHeight);
+
+// Add class/topic name below banner
+const textY = 10 + bannerHeight + 10;
+pdf.setFontSize(18);
+pdf.setFont(undefined, 'bold');
+pdf.setTextColor(214, 182, 91); // #D6B65B golden color
+pdf.text(className, pdf.internal.pageSize.getWidth() / 2, textY, { align: 'center' });
+
+        async function addPaginatedContent(contentDiv, pdf) {
+          const contentPages = document.querySelectorAll(".question-page");
+          let isFirstContentPage = true;
+
+          for (let i = 0; i < contentPages.length; i++) {
+            const page = contentPages[i];
+
+            if (!isFirstContentPage) {
+              pdf.addPage();
+              addWatermarkToPDF(pdf);
+            }
+
+            page.style.display = "block";
+
+            const pageCanvas = await html2canvas(page, {
+  scale: 1,
+  backgroundColor: null,
+  allowTaint: true,
+  useCORS: true
+});
+            const pageImage = pageCanvas.toDataURL("image/png", 0.7);
+
+            const pageWidth  = pdf.internal.pageSize.getWidth() - 20;
+            const pageHeight = pdf.internal.pageSize.getHeight() - 20;
+            const imgWidth   = pageWidth;
+            const imgHeight  = (pageCanvas.height * imgWidth) / pageCanvas.width;
+
+            pdf.addImage(pageImage, "PNG", 10, 10, imgWidth, Math.min(imgHeight, pageHeight));
+
+            pdf.addImage(
+              logo.src,
+              "PNG",
+              pdf.internal.pageSize.getWidth() - logoWidth - 10,
+              10,
+              logoWidth,
+              logoHeight
+            );
+
+            page.style.display = "none";
+            isFirstContentPage = false;
+          }
+        }
+
+        pdf.addPage();
+        addWatermarkToPDF(pdf);
+        await addPaginatedContent(document.getElementById("questiondiv"), pdf);
+
+        pdf.save(`${className}.pdf`);
+
+        document.getElementById("loadingOverlay").style.display = "none";
+
+        clearLocalStorage();
+        window.location.href = 'thankyou.html';
+      }
+
+      document.getElementById("downloadBtn").addEventListener("click", downloadReport);
+      document.getElementById("downloadBtn2").addEventListener("click", downloadReport);
+
+      // // ── DevTools silent disable ───────────────────────────────────────────
+      // function disableDevToolsSilently() {
+      //   document.addEventListener("contextmenu", e => e.preventDefault());
+
+      //   document.addEventListener("keydown", function (e) {
+      //     if (
+      //       e.key === "F12" ||
+      //       (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+      //       (e.ctrlKey && e.key === "U")
+      //     ) {
+      //       e.preventDefault();
+      //       e.stopPropagation();
+      //       return false;
+      //     }
+      //   });
+
+      //   document.body.style.userSelect = "none";
+      //   document.body.style.webkitUserSelect = "none";
+      //   document.body.style.mozUserSelect = "none";
+
+      //   let devtoolsOpen = false;
+      //   const threshold = 160;
+
+      //   setInterval(() => {
+      //     const widthDiff  = window.outerWidth  - window.innerWidth;
+      //     const heightDiff = window.outerHeight - window.innerHeight;
+      //     devtoolsOpen = widthDiff > threshold || heightDiff > threshold;
+      //     if (devtoolsOpen) { console.clear(); debugger; }
+      //   }, 800);
+      // }
+
+      // disableDevToolsSilently();
+    </script>
+  </body>
+</html>
